@@ -1,9 +1,9 @@
 /* =========================================================
  * bootstrap-treeview.js v1.0.0
  * =========================================================
- * Copyright 2013 Jonathan Miles 
+ * Copyright 2013 Jonathan Miles
  * Project URL : http://www.jondmiles.com/bootstrap-treeview
- *	
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -35,7 +35,7 @@
 		this.tree = [];
 		this.nodes = [];
 		this.selectedNode = {};
-		
+
 		this._init(options);
 	};
 
@@ -60,6 +60,9 @@
 		highlightSelected: true,
 		showBorder: true,
 		showTags: false,
+
+		unSelectableClass: undefined,
+		unSelectableBackColor: undefined,
 
 		// Event handler for when a node is selected
 		onNodeSelected: undefined
@@ -89,7 +92,7 @@
 		},
 
 		_init: function(options) {
-		
+
 			if (options.data) {
 				if (typeof options.data === 'string') {
 					options.data = $.parseJSON(options.data);
@@ -126,7 +129,7 @@
 		_clickHandler: function(event) {
 
 			if (!this.options.enableLinks) { event.preventDefault(); }
-			
+
 			var target = $(event.target),
 				classList = target.attr('class') ? target.attr('class').split(' ') : [],
 				node = this._findNode(target);
@@ -142,7 +145,7 @@
 			}
 		},
 
-		// Looks up the DOM for the closest parent list item to retrieve the 
+		// Looks up the DOM for the closest parent list item to retrieve the
 		// data attribute nodeid, which is used to lookup the node in the flattened structure.
 		_findNode: function(target) {
 
@@ -157,27 +160,32 @@
 
 		// Actually triggers the nodeSelected event
 		_triggerNodeSelectedEvent: function(node) {
-
+			console.log(this.selectedNode.text);
 			this.$element.trigger('nodeSelected', [$.extend(true, {}, node)]);
 		},
 
-		// Handles selecting and unselecting of nodes, 
+		// Handles selecting and unselecting of nodes,
 		// as well as determining whether or not to trigger the nodeSelected event
 		_setSelectedNode: function(node) {
 
 			if (!node) { return; }
-			
+
+			if (node.class !== undefined && node.class === this.options.unSelectableClass) {
+				this._triggerNodeSelectedEvent(node);
+				return;
+			}
+
 			if (node === this.selectedNode) {
 				this.selectedNode = {};
 			}
 			else {
 				this._triggerNodeSelectedEvent(this.selectedNode = node);
 			}
-			
+
 			this._render();
 		},
 
-		// On initialization recurses the entire tree structure 
+		// On initialization recurses the entire tree structure
 		// setting expanded / collapsed states based on initial levels
 		_setInitialLevels: function(nodes, level) {
 
@@ -186,12 +194,12 @@
 
 			var self = this;
 			$.each(nodes, function addNodes(id, node) {
-				
+
 				if (level >= self.options.levels) {
 					self._toggleNodes(node);
 				}
 
-				// Need to traverse both nodes and _nodes to ensure 
+				// Need to traverse both nodes and _nodes to ensure
 				// all levels collapsed beyond levels
 				var nodes = node.nodes ? node.nodes : node._nodes ? node._nodes : undefined;
 				if (nodes) {
@@ -229,7 +237,7 @@
 				self.$wrapper = $(self._template.list);
 
 				self._injectStyle();
-				
+
 				self.initialized = true;
 			}
 
@@ -240,7 +248,7 @@
 			self._buildTree(self.tree, 0);
 		},
 
-		// Starting from the root node, and recursing down the 
+		// Starting from the root node, and recursing down the
 		// structure we build the tree one node at a time
 		_buildTree: function(nodes, level) {
 
@@ -264,7 +272,7 @@
 					treeItem.append(self._template.indent);
 				}
 
-				// Add expand, collapse or empty spacer icons 
+				// Add expand, collapse or empty spacer icons
 				// to facilitate tree structure navigation
 				if (node._nodes) {
 					treeItem
@@ -345,17 +353,20 @@
 				style += 'color:' + node.color + ';';
 			}
 
-			if (this.options.highlightSelected && (node === this.selectedNode)) {
+			if (this.options.unSelectableBackColor && (node.class === this.options.unSelectableClass)) {
+				style += 'background-color: ' + this.options.unSelectableBackColor + ';';
+			}
+			else if (this.options.highlightSelected && (node === this.selectedNode)) {
 				style += 'background-color:' + this.options.selectedBackColor + ';';
 			}
 			else if (node.backColor) {
 				style += 'background-color:' + node.backColor + ';';
-			}
+			} 
 
 			return style;
 		},
 
-		// Add inline style into head 
+		// Add inline style into head
 		_injectStyle: function() {
 
 			if (this.options.injectStyle && !document.getElementById(this._styleId)) {

@@ -123,12 +123,14 @@
           {
             text: 'Parent 2',
             href: '#parent2',
-            tags: ['0']
+            tags: ['0'],
+            class: "unsel",
           },
           {
             text: 'Parent 3',
             href: '#parent3',
-             tags: ['0']
+            tags: ['0'],
+            class: "sele"
           },
           {
             text: 'Parent 4',
@@ -215,7 +217,8 @@
             ']' +
           '},' +
           '{' +
-            '"text": "Parent 2"' +
+            '"text": "Parent 2",' +
+            '"class": "unsel"' +
           '},' +
           '{' +
             '"text": "Parent 3"' +
@@ -230,7 +233,9 @@
 
 
         $('#treeview1').treeview({
-          data: defaultData
+          data: defaultData,
+          unSelectableClass: "unsel",
+          unSelectableBackColor: "#cccccc"
         });
 
         $('#treeview2').treeview({
@@ -313,7 +318,10 @@
         $('#treeview11').treeview({
           color: "#428bca",
           data: defaultData,
+          unSelectableClass: 'unsel',
+          unSelectableBackColor: '#dddddd',
           onNodeSelected: function(event, node) {
+            console.log(node.text + " " + node.class);
             $('#event_output').prepend('<p>You clicked ' + node.text + '</p>');
           }
         });

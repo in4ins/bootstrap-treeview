@@ -68,12 +68,14 @@ Example
 	        ]
 	      },
 	      {
-	        text: "Child 2"
+	        text: "Child 2",
+	        class: "unselectable-class"
 	      }
 	    ]
 	  },
 	  {
-	    text: "Parent 2"
+	    text: "Parent 2",
+	    class: "OtherClass-Selectable"
 	  },
 	  {
 	    text: "Parent 3"
@@ -145,7 +147,12 @@ Used in conjunction with global enableLinks option to specify anchor tag URL on 
 ### tags
 Array of Strings.  Optional
 
-Used in conjunction with global showTags option to add additional information to the right of each node; using [Bootstrap Badges](http://getbootstrap.com/components/#badges) 
+Used in conjunction with global showTags option to add additional information to the right of each node; using [Bootstrap Badges](http://getbootstrap.com/components/#badges)
+
+### class
+String. Optional
+
+Used in conjection with global unSelectableClass option to specify that a node is not selectable.
 
 ### Extendible
 
@@ -160,10 +167,20 @@ Array of Objects.  No default, expects data
 
 This is the core data to be displayed by the tree view.
 
+### unSelectableClass
+String. Optional.
+
+Nodes of having a class of this string will not be selectable.
+
 ### backColor
 String, [any legal color value](http://www.w3schools.com/cssref/css_colors_legal.asp).  Default: inherits from Bootstrap.css.
 
 Sets the default background color used by all nodes, except when overridden on a per node basis in data.
+
+### unSelectableBackColor
+String, [any legal color value](http://www.w3schools.com/cssref/css_colors_legal.asp).  Default: inherits from Bootstrap.css.
+
+Sets the default background color used by all unselectable nodes. This cannot be overridden on a per node basis in data.
 
 ### borderColor
 String, [any legal color value](http://www.w3schools.com/cssref/css_colors_legal.asp).  Default: inherits from Bootstrap.css.
