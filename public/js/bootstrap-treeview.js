@@ -172,8 +172,8 @@
 			if (node.class !== undefined) {
 				if (this.options.unSelectableClasses.indexOf(node.class) > -1) {
 						this._triggerNodeSelectedEvent(node);
+						return;
 				}
-				return;
 			}
 
 			if (node === this.selectedNode) {
