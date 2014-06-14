@@ -100,6 +100,7 @@
                 text: 'Child 1',
                 href: '#child1',
                 tags: ['2'],
+                class: 'unsel2',
                 nodes: [
                   {
                     text: 'Grandchild 1',
@@ -234,7 +235,7 @@
 
         $('#treeview1').treeview({
           data: defaultData,
-          unSelectableClass: "unsel",
+          unSelectableClasses: ["unsel"],
           unSelectableBackColor: "#cccccc"
         });
 
@@ -249,7 +250,7 @@
         });
 
         $('#treeview4').treeview({
-          
+
           color: "#428bca",
           data: defaultData
         });
@@ -287,7 +288,7 @@
           borderColor: "red",
           showBorder: false,
           showTags: true,
-          highlightSelected: true, 
+          highlightSelected: true,
           selectedColor: "yellow",
           selectedBackColor: "darkorange",
           data: defaultData
@@ -303,7 +304,7 @@
           borderColor: "red",
           showBorder: false,
           showTags: true,
-          highlightSelected: true, 
+          highlightSelected: true,
           selectedColor: "yellow",
           selectedBackColor: "darkorange",
           data: alternateData
@@ -318,7 +319,7 @@
         $('#treeview11').treeview({
           color: "#428bca",
           data: defaultData,
-          unSelectableClass: 'unsel',
+          unSelectableClasses: ['unsel', 'unsel2'],
           unSelectableBackColor: '#dddddd',
           onNodeSelected: function(event, node) {
             console.log(node.text + " " + node.class);

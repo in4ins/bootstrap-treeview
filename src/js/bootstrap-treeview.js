@@ -61,7 +61,7 @@
 		showBorder: true,
 		showTags: false,
 
-		unSelectableClass: undefined,
+		unSelectableClasses: undefined,
 		unSelectableBackColor: undefined,
 
 		// Event handler for when a node is selected
@@ -160,7 +160,6 @@
 
 		// Actually triggers the nodeSelected event
 		_triggerNodeSelectedEvent: function(node) {
-			console.log(this.selectedNode.text);
 			this.$element.trigger('nodeSelected', [$.extend(true, {}, node)]);
 		},
 
@@ -170,8 +169,10 @@
 
 			if (!node) { return; }
 
-			if (node.class !== undefined && node.class === this.options.unSelectableClass) {
-				this._triggerNodeSelectedEvent(node);
+			if (node.class !== undefined) {
+				if (this.options.unSelectableClasses.indexOf(node.class) > -1) {
+						this._triggerNodeSelectedEvent(node);
+				}
 				return;
 			}
 
@@ -353,7 +354,8 @@
 				style += 'color:' + node.color + ';';
 			}
 
-			if (this.options.unSelectableBackColor && (node.class === this.options.unSelectableClass)) {
+			if (this.options.unSelectableBackColor &&
+			    (this.options.unSelectableClasses.indexOf(node.class) > -1)) {
 				style += 'background-color: ' + this.options.unSelectableBackColor + ';';
 			}
 			else if (this.options.highlightSelected && (node === this.selectedNode)) {
@@ -361,7 +363,7 @@
 			}
 			else if (node.backColor) {
 				style += 'background-color:' + node.backColor + ';';
-			} 
+			}
 
 			return style;
 		},

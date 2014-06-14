@@ -15,6 +15,7 @@ Where provided these are the actual versions bootstrap-treeview has been tested 
 
 - [Bootstrap v3.0.3](http://getbootstrap.com/)
 - [jQuery v2.0.3](http://jquery.com/)
+- [IE 8+](http://windows.microsoft.com/en-us/internet-explorer/) (If using Internet Explorer)
 
 Sorry no support planned for Bootstrap 2.
 
@@ -41,7 +42,7 @@ Basic usage may look something like this.
 		// Some logic to retrieve, or generate tree structure
 		return data;
 	}
- 
+
 	$('#tree').treeview({data: getTree()});
 
 
@@ -97,14 +98,14 @@ At the lowest level a tree node is a represented as a simple JavaScript object. 
 If you want to do more, here's the full node specification
 
 	{
-		text: "Node 1", 
+		text: "Node 1",
 		icon: "glyphicon glyphicon-stop",
 		color: "#000000",
 		backColor: "#FFFFFF",
 		href: "#node-1",
 		tags: ['available'],
 		nodes: [
-			{}, 
+			{},
 			...
 		]
 	}
@@ -125,7 +126,7 @@ String.  Optional
 
 The icon displayed on a given node, typically to the left of the text.
 
-For simplicity we directly leverage [Bootstraps Glyphicons support](http://getbootstrap.com/components/#glyphicons) and as such you should provide both the base class and individual icon class separated by a space.  
+For simplicity we directly leverage [Bootstraps Glyphicons support](http://getbootstrap.com/components/#glyphicons) and as such you should provide both the base class and individual icon class separated by a space.
 
 By providing the base class you retain full control over the icons used.  If you want to use your own then just add your class to this icon field.
 
@@ -152,7 +153,7 @@ Used in conjunction with global showTags option to add additional information to
 ### class
 String. Optional
 
-Used in conjection with global unSelectableClass option to specify that a node is not selectable.
+Used in conjection with global unSelectableClasses option to specify that a node is not selectable.
 
 ### Extendible
 
@@ -167,10 +168,10 @@ Array of Objects.  No default, expects data
 
 This is the core data to be displayed by the tree view.
 
-### unSelectableClass
-String. Optional.
+### unSelectableClasses
+Array of Strings. Optional.
 
-Nodes of having a class of this string will not be selectable.
+Nodes of having a class with one of these strings will not be selectable.
 
 ### backColor
 String, [any legal color value](http://www.w3schools.com/cssref/css_colors_legal.asp).  Default: inherits from Bootstrap.css.
@@ -207,7 +208,7 @@ String, class name(s).  Default: "glyphicon glyphicon-plus" as defined by [Boots
 
 Sets the icon to be used on an expandable tree node.
 
-### highlightSelected 
+### highlightSelected
 Boolean.  Default: true
 
 Whether or not to highlight the selected node.
@@ -217,7 +218,7 @@ String, [any legal color value](http://www.w3schools.com/cssref/css_colors_legal
 
 Sets the default background color activated when the users cursor hovers over a node.
 
-### levels 
+### levels
 Integer. Default: 2
 
 Sets the number of hierarchical levels deep the tree will be expanded to by default.
@@ -278,7 +279,7 @@ and using jQuery .on method
 	$('#tree').on('nodeSelected', function(event, node) {
 		// Your logic goes here
 	});
-		
+
 
 
 
